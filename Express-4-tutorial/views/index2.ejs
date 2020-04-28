@@ -1,0 +1,20 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <p>Sign Up!</p>
+    <form action="/auth/signUp" name="signUp" method="POST">
+      UserName: <input name="username" id="username" /><br>
+      Password: <input name="password" id="password" /><br>
+      <input type="submit" value="Sign up">
+    </form>
+
+    <h1>EJL: <%=moretitle%></h1>
+    <p>We just use JS inside the &lt;% %&gt;</p>
+    <ul>
+      <%for(var i=0; i<list.length; i++){%>
+        <li><%=list[i].item%></li>
+      <%}%>
+    </ul>
+  </body>
+</html>
