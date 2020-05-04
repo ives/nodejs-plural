@@ -2,10 +2,11 @@
   <head>
   </head>
   <body>
-    <h1>Book List</h1>
+    <p><a href="/auth/logout">Log out</a></p>
+    <h1>Book List:</h1>
         <ul>
       <%for(var i=0; i<books.length; i++){%>
-        <li><%=books[i].title%></li>
+        <li><a href="/books/<%=books[i]._id%>"><%=books[i].title%></a></li>
       <%}%>
     </ul>
     <p>PS. just use JS inside the &lt;% %&gt;</p>

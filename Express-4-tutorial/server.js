@@ -7,6 +7,15 @@ const debug = require('debug')('server'); // detailed logout
 
 const bodyParser = require('body-parser');
 
+// Maintains your user object in the session
+// Also drops and pull out of a cookie
+// middleware to authenticate requests through a set of plugins known as strategies
+// 'passport-local' is a popular strategy - byt Many ways to do it (Oauth2, FB, Google etc)
+const passport = require('passport');
+// Parse 'Cookie' header and populate req.cookies, similar to body-parser
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
 const port = process.env.PORT || 3000;
 const confDemo = [{ condig: 'demo' }, { passTo: 'router' }];
 
@@ -19,14 +28,23 @@ app.use(morgan('tiny')); // combined - lots, tiny - min
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+// Takes a secret to build a cookie
+app.use(session({ secret: 'mylib' }));
+
+// abstract code and pass in app
+require('./config/passport.js')(app);
 
 // EJS templates:
 app.set('views', './views'); // set a val, can then app.get('views') - those are reserved
 app.set('view engine', 'ejs'); // SET not use - will look for an NPM package ejs
 
 app.get('/', (req, res) => {
-  res.render('index2', {
-    moretitle: 'this is Awesome shit',
+  const loggedin = req.user !== undefined;
+  debug(loggedin);
+  res.render('index', {
+    moretitle: 'EJS is Awesome',
+    loggedin,
     list: [{ item: 12 }, { item: 321 }],
   });
 });
