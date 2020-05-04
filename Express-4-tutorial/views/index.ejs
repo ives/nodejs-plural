@@ -20,5 +20,8 @@
         <li><%=list[i].item%></li>
       <%}%>
     </ul>
+    <% var htmlText = "<p>HTML text is <br /><strong>rendered</strong> here <br /> with s DASH" %>
+    <div><%=htmlText%></div>
+    <div><%-htmlText%></div>
   </body>
 </html>
